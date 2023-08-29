@@ -2,7 +2,7 @@ name: Release
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 12 * *"
+    - cron: "0 2 * * *"
 jobs:
   build:
     name: Build
@@ -23,6 +23,14 @@ jobs:
       - name: Build geoip
         id: build
         run: go run -v .
+
+        
+      - name: Set variables
+        run: |
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+        shell: bash
+        
       - name: Generate sha256 hash
         if: steps.build.outputs.skip != 'true'
         run: |
@@ -35,8 +43,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.build.outputs.tag }}
-          release_name: ${{ steps.build.outputs.tag }}
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: false
       - name: Release geoip.db
