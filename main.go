@@ -216,11 +216,11 @@ func release(source string, destination string) error {
 	if err != nil {
 		return err
 	}
-	writer, err = newWriter(metadata, []string{"cn"})
+	writer, err = newWriter(metadata, []string{"ir"})
 	if err != nil {
 		return err
 	}
-	err = write(writer, countryMap, "geoip-cn.db", []string{"cn"})
+	err = write(writer, countryMap, "geoip-ir.db", []string{"ir"})
 	if err != nil {
 		return err
 	}
@@ -240,7 +240,7 @@ func main() {
 	if len(os.Args) >= 3 {
 		err = local(os.Args[1], os.Args[2], os.Args[3:])
 	} else {
-		err = release("Dreamacro/maxmind-geoip", "sagernet/sing-geoip")
+		err = release("MiSaturo/GeoIP-DB-For-Iran", "MiSaturo/sing-geoip-ir")
 	}
 	if err != nil {
 		logrus.Fatal(err)
