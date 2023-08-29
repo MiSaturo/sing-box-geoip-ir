@@ -27,7 +27,7 @@ jobs:
         if: steps.build.outputs.skip != 'true'
         run: |
           sha256sum geoip.db > geoip.db.sha256sum
-          sha256sum geoip-cn.db > geoip-cn.db.sha256sum
+          sha256sum geoip-ir.db > geoip-ir.db.sha256sum
       - name: Create a release
         if: steps.build.outputs.skip != 'true'
         id: create_release
@@ -59,15 +59,15 @@ jobs:
           asset_path: ./geoip.db.sha256sum
           asset_name: geoip.db.sha256sum
           asset_content_type: text/plain
-      - name: Release geoip-cn.db
+      - name: Release geoip-ir.db
         if: steps.build.outputs.skip != 'true'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./geoip-cn.db
-          asset_name: geoip-cn.db
+          asset_path: ./geoip-ir.db
+          asset_name: geoip-ir.db
           asset_content_type: application/octet-stream
       - name: Release geoip.db sha256sum
         if: steps.build.outputs.skip != 'true'
@@ -76,6 +76,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./geoip-cn.db.sha256sum
-          asset_name: geoip-cn.db.sha256sum
+          asset_path: ./geoip-ir.db.sha256sum
+          asset_name: geoip-ir.db.sha256sum
           asset_content_type: text/plain
